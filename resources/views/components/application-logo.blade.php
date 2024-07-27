@@ -1,0 +1,1 @@
+<img src="{{asset('/vendor/fcadevelopment/brand_logo.png')}}" {{ $attributes }}>
