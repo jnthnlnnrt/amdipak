@@ -22,7 +22,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="antiliased bg-gray-50">
+<body class="antiliased bg-gray-50 text-sm">
     <!-- Navbar -->
     <nav class="bg-white border-b border-gray-200 px-4 py-2.5 fixed left-0 right-0 top-0 z-50">
         <div class="grid grid-cols-3">
@@ -58,9 +58,11 @@
                 </div>
             </div>
             <div class="flex items-center justify-end">
-                <button type="button" class="flex mr-2 rounded-full md:mr-0" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="dropdown">
+                <button type="button" class="flex mr-2 rounded-full md:mr-0" id="user-menu-button" aria-expanded="false"
+                    data-dropdown-toggle="dropdown">
                     <span class="sr-only">Open user menu</span>
-                    <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                    <div
+                        class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
                         <span class="font-medium text-gray-600 dark:text-gray-300">JC</span>
                     </div>
                     <span class="self-center hidden md:block ml-2 text-sm">
@@ -72,16 +74,47 @@
     </nav>
 
     <!-- Sidebar -->
-    <aside class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0" aria-label="Sidenav" id="drawer-navigation">
+    <aside
+        class="fixed top-0 left-0 z-40 w-64 h-screen pt-14 transition-transform -translate-x-full bg-white border-r border-gray-200 md:translate-x-0"
+        aria-label="Sidenav" id="drawer-navigation">
         <div class="overflow-y-auto py-5 px-3 h-full bg-white">
-            Sidebar
+            <ul class="space-y-1">
+                <li>
+                    <a href="{{route('dashboard')}}"
+                        class="flex items-center p-2 font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <i class="fa-solid fa-gauge-high w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                        <span class="ml-3">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <button type="button"
+                        class="flex items-center p-2 w-full font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100" aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
+                        <i class="fa-solid fa-industry flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Organización</span>
+                        <i class="fa-solid fa-chevron-down w-4 h-4"></i>
+                    </button>
+                    <ul id="dropdown-pages" class="hidden py-2 space-y-1">
+                        <li>
+                            <a href="#" class="flex items-center p-2 pl-10 w-full font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">
+                                <i class="fa-solid fa-sitemap w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                                <span class="ml-3">Colaboradores</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('departments')}}" class="flex items-center p-2 pl-10 w-full font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100">
+                                <i class="fa-solid fa-sitemap w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900"></i>
+                                <span class="ml-3">Departamentos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        Sidebar
     </aside>
 
     <!-- Content -->
-    <main class="px-4 md:ml-64 h-auto pt-14">
-        Content
+    <main class="px-5 md:ml-64 h-auto pt-14">
+        {{$slot}}
     </main>
 </body>
 
