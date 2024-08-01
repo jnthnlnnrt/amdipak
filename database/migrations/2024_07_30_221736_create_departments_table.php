@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->string('internal_id', 6)->unique()->primary();
+            $table->string('internal_id', 6)->unique();
             $table->string('name', 30);
             $table->timestamps();
             $table->unsignedBigInteger('created_by');

@@ -13,9 +13,17 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('internal_id', 6)->unique()->primary();
+            $table->string('internal_id', 6)->unique();
             $table->string('name', 50);
+            $table->string('email', 50)->nullable();
+            $table->unsignedBigInteger('department_id');
             $table->timestamps();
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
+
+            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 
