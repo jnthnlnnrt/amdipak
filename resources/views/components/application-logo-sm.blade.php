@@ -1,0 +1,1 @@
+<img src="{{asset('/vendor/fcadevelopment/resources/img/brand/cubo_dipak_bordered.png')}}" {{$attributes}}>
