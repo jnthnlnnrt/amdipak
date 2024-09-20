@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('maintenance_frequencies', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->integer('lower_limit');
             $table->integer('upper_limit');
             $table->text('remarks', 255)->nullable();

@@ -5,13 +5,16 @@ const colors = require('tailwindcss/colors')
 export default {
   darkMode: "class",
   content: [
+    "./app/Livewire/**/*.php",
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
     "./node_modules/flowbite/**/*.js",
     "./app/Helpers/PowerGridThemes/*.php",
     "./vendor/power-components/livewire-powergrid/resources/views/**/*.php",
-    "./vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php"
+    "./vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php",
+    './vendor/wire-elements/modal/**/*.blade.php',
+    './vendor/wire-elements/modal/src/ModalComponent.php',
   ],
   presets: [
     require("./vendor/power-components/livewire-powergrid/tailwind.config.js"),

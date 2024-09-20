@@ -27,8 +27,9 @@ return new class extends Migration
             $table->unsignedBigInteger('status_id');
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('location_id');
-            $table->unsignedBigInteger('maintenance_frequency');
-            $table->date('last_maintenance');
+            $table->boolean('require_maintenance');
+            $table->unsignedBigInteger('frequency_id')->nullable();
+            $table->date('last_maintenance')->nullable();
             $table->text('remarks', 255)->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('created_by');
@@ -42,7 +43,7 @@ return new class extends Migration
             $table->foreign('status_id')->references('id')->on('cat_asset_statuses');
             $table->foreign('employee_id')->references('id')->on('org_employees');
             $table->foreign('location_id')->references('id')->on('org_locations');
-            $table->foreign('maintenance_frequency')->references('id')->on('maintenance_frequencies');
+            $table->foreign('frequency_id')->references('id')->on('maintenance_frequencies');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
         });

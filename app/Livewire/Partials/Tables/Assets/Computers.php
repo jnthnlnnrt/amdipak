@@ -4,6 +4,7 @@ namespace App\Livewire\Partials\Tables\Assets;
 
 use App\Helpers\PowerGridThemes\TailwindStriped;
 use App\Models\Asset;
+use DateTime;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use PowerComponents\LivewirePowerGrid\Button;
@@ -36,11 +37,14 @@ final class Computers extends PowerGridComponent
         ];
     }
 
-    public function datasource(): Builder
+    public function datasource(): ?Builder
     {
         return Asset::query()
             ->with('manufacturer')
-            ->with('subtype');
+            ->with('subtype')
+            ->with('status')
+            ->with('employee')
+            ->with('frequency');
     }
 
     public function relationSearch(): array
@@ -55,7 +59,37 @@ final class Computers extends PowerGridComponent
             ->add('manufacturer', fn ($computer) => e($computer->manufacturer->name))
             ->add('model')
             ->add('serial')
-            ->add('type', fn ($computer) => e($computer->subtype->name));
+            ->add('type', fn ($computer) => e($computer->subtype->name))
+            ->add('status', fn ($computer) => e($computer->status->name))
+            ->add('employee', fn ($computer) => e($computer->employee->name))
+            ->add('department', fn ($computer) => e($computer->employee->department->name))
+            ->add('fq', function($computer){
+                return $computer->frequency->lower_limit . " a " . $computer->frequency->upper_limit . " meses";
+            })
+            ->add('sm', function($computer){
+                $lm = new DateTime($computer->last_maintenance);
+                $today = new DateTime(date("Y-m-d"));
+
+                $interval = $today->diff($lm);
+
+                $months = ($interval->y * 12) + $interval->m;
+
+                return $months . " meses";
+            })
+            ->add('score', function($computer){
+                $lm = new DateTime($computer->last_maintenance);
+                $today = new DateTime(date("Y-m-d"));
+
+                $interval = $today->diff($lm);
+
+                $months = ($interval->y * 12) + $interval->m;
+
+                if(($months >= $computer->frequency->lower_limit) && ($months <= $computer->frequency->upper_limit)){
+                    return ("En tiempo");
+                } else{
+                    return ("Fuera de tiempo");
+                }
+            });
     }
 
     public function columns(): array
@@ -79,7 +113,27 @@ final class Computers extends PowerGridComponent
 
             Column::make('Tipo', 'type')
                 ->sortable()
-                ->searchable(),                
+                ->searchable(),
+            
+            Column::make('Estatus', 'status')
+                ->sortable()
+                ->searchable(),
+            
+            Column::make('Usuario', 'employee')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Departamento', 'department')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('UM', 'last_maintenance'),
+
+            Column::make('FQ', 'fq'),
+
+            Column::make('SM', 'sm'),
+
+            Column::make('Score', 'score')
         ];
     }
 

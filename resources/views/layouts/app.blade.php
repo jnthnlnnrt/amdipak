@@ -184,5 +184,7 @@
         <main class="px-6 md:ml-64 h-auto pt-20 pb-4">
             {{ $slot }}
         </main>
+        <!-- Wire Elements Modal -->
+        @livewire('wire-elements-modal')
     </body>
 </html>
