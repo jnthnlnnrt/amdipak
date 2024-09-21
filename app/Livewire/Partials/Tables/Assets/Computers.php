@@ -22,6 +22,8 @@ final class Computers extends PowerGridComponent
 {
     use WithExport;
 
+    public string $tableName = 'ComputersTable';
+
     public function setUp(): array
     {
         $this->showCheckBox();
@@ -84,10 +86,12 @@ final class Computers extends PowerGridComponent
 
                 $months = ($interval->y * 12) + $interval->m;
 
-                if(($months >= $computer->frequency->lower_limit) && ($months <= $computer->frequency->upper_limit)){
-                    return ("En tiempo");
-                } else{
-                    return ("Fuera de tiempo");
+                if (($months >= 0) && ($months <= $computer->frequency->lower_limit)){
+                    return "En tiempo";  
+                } elseif(($months >= $computer->frequency->lower_limit) && ($months <= $computer->frequency->upper_limit)) {
+                    return "Programar";  
+                } elseif($months > $computer->frequency->upper_limit){
+                    return "Fuera de tiempo";  
                 }
             });
     }

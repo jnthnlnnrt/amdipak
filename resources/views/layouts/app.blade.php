@@ -21,7 +21,7 @@
     </head>
     <body class="text-sm">
         <!-- Navbar -->
-        <nav class="bg-primary-700 text-white px-4 py-3 fixed left-0 right-0 top-0 z-50">
+        <nav class="bg-primary-500 text-white px-4 py-3 fixed left-0 right-0 top-0 z-50">
             <div class="grid grid-cols-3">
                 <div class="flex items-center justify-start">
                     <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
@@ -44,7 +44,7 @@
                     <div class="hidden md:block">
                         <a href="https://dipak.com.mx" class="flex items-center">
                             <x-application-logo-sm class="h-10 mr-3" />
-                            <span class="self-center text-lg font-normal text-slate-100">Asset Manager <span
+                            <span class="self-center text-lg font-normal">Asset Manager <span
                                     class="font-thin">Dipak</span></span>
                         </a>
                     </div>

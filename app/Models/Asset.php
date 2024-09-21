@@ -15,6 +15,29 @@ class Asset extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'category_id',
+        'type_id',
+        'subtype_id',
+        'asset_tag',
+        'manufacturer_id',
+        'model',
+        'serial',
+        'imei',
+        'mac_address',
+        'ip_address',
+        'ipmi_address',
+        'status_id',
+        'employee_id',
+        'location_id',
+        'require_maintenance',
+        'frequency_id',
+        'last_maintenance',
+        'remarks',
+        'created_by',
+        'updated_by',
+    ];
+
     public function manufacturer(): BelongsTo{
         return $this->belongsTo(Manufacturer::class);
     }
