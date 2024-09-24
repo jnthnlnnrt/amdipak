@@ -11,6 +11,7 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
+        "masmerise/livewire-toaster": "^2.3",
         "power-components/livewire-powergrid": "^5.10",
         "spatie/laravel-permission": "^6.9",
         "wire-elements/modal": "^2.0"
@@ -28,7 +29,11 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

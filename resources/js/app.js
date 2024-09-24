@@ -1,5 +1,8 @@
 import './bootstrap';
 
+//Toast
+import '../../vendor/masmerise/livewire-toaster/resources/js';
+
 //Flowbite
 import 'flowbite';
 

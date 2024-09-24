@@ -7,6 +7,7 @@ use App\Models\Asset;
 use DateTime;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Blade;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Exportable;
@@ -32,7 +33,9 @@ final class Computers extends PowerGridComponent
             Exportable::make('export')
                 ->striped()
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
-            Header::make()->showSearchInput(),
+            Header::make()
+                ->showToggleColumns()
+                ->showSearchInput(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -86,12 +89,12 @@ final class Computers extends PowerGridComponent
 
                 $months = ($interval->y * 12) + $interval->m;
 
-                if (($months >= 0) && ($months <= $computer->frequency->lower_limit)){
-                    return "En tiempo";  
+                if (($months >= 0) && ($months <= $computer->frequency->lowergi_limit)){
+                    return Blade::render('<x-badges.green>En tiempo</x-badges.green>');
                 } elseif(($months >= $computer->frequency->lower_limit) && ($months <= $computer->frequency->upper_limit)) {
-                    return "Programar";  
+                    return Blade::render('<x-badges.yellow>Programar</x-badges.yellow>');
                 } elseif($months > $computer->frequency->upper_limit){
-                    return "Fuera de tiempo";  
+                    return Blade::render('<x-badges.red>Fuera de tiempo</x-badges.red>');
                 }
             });
     }

@@ -15,6 +15,7 @@ export default {
     "./vendor/power-components/livewire-powergrid/src/Themes/Tailwind.php",
     './vendor/wire-elements/modal/**/*.blade.php',
     './vendor/wire-elements/modal/src/ModalComponent.php',
+    './vendor/masmerise/livewire-toaster/resources/views/*.blade.php',
   ],
   presets: [
     require("./vendor/power-components/livewire-powergrid/tailwind.config.js"),

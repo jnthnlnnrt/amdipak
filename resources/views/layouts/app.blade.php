@@ -21,7 +21,7 @@
     </head>
     <body class="text-sm">
         <!-- Navbar -->
-        <nav class="bg-primary-500 text-white px-4 py-3 fixed left-0 right-0 top-0 z-50">
+        <nav class="bg-primary-600 text-white px-4 py-3 fixed left-0 right-0 top-0 z-50">
             <div class="grid grid-cols-3">
                 <div class="flex items-center justify-start">
                     <button data-drawer-target="drawer-navigation" data-drawer-toggle="drawer-navigation"
@@ -184,6 +184,10 @@
         <main class="px-6 md:ml-64 h-auto pt-20 pb-4">
             {{ $slot }}
         </main>
+
+        <!-- Toast -->
+        <x-toaster-hub /> <!-- 👈 -->
+        
         <!-- Wire Elements Modal -->
         @livewire('wire-elements-modal')
     </body>

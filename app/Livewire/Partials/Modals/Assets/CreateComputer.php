@@ -7,8 +7,10 @@ use App\Models\Catalogs\Manufacturer;
 use App\Models\Catalogs\Subtype;
 use App\Models\Organization\Location;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
+use Masmerise\Toaster\Toaster;
 use PhpParser\Node\Stmt\TryCatch;
 
 class CreateComputer extends ModalComponent
@@ -27,32 +29,41 @@ class CreateComputer extends ModalComponent
     }
 
     public function save(){
-
-     
-        try{
-            $computer = Asset::create([
-                'category_id' => 1,
-                'type_id' => 1,
-                'subtype_id' => $this->subtype,
-                'asset_tag' => 'X',
-                'manufacturer_id' => $this->manufacturer,
-                'model' => $this->model,
-                'serial' => $this->serial,
-                'status_id' => 1,
-                'employee_id' => 2,
-                'location_id' => $this->location,
-                'require_maintenance' => 1,
-                'frequency_id' => 1,
-                'last_maintenance' => date('Y-m-d'),
-                'remarks' => $this->remarks,
-                'created_by' => Auth::user()->id,
-                'updated_by' => Auth::user()->id,
-            ]);
-
-            $this->dispatch('pg:eventRefresh-ComputersTable');
-            $this->closeModal();
-        } catch(\Throwable $e){
-            dd($e);
+        if(Asset::where('serial', $this->serial)->exists()){
+            Toaster::error('Ya existe un registro con el mismo numero de serie.'); 
+        } else {
+            DB::beginTransaction();
+            try{
+                $computer = Asset::create([
+                    'category_id' => 1,
+                    'type_id' => 1,
+                    'subtype_id' => $this->subtype,
+                    'asset_tag' => 'X',
+                    'manufacturer_id' => $this->manufacturer,
+                    'model' => $this->model,
+                    'serial' => strtoupper($this->serial),
+                    'status_id' => 1,
+                    'employee_id' => 2,
+                    'location_id' => $this->location,
+                    'require_maintenance' => 1,
+                    'frequency_id' => 1,
+                    'last_maintenance' => date('Y-m-d'),
+                    'remarks' => $this->remarks,
+                    'created_by' => Auth::user()->id,
+                    'updated_by' => Auth::user()->id,
+                ]);
+    
+                Asset::where('id', $computer->id)->update(['asset_tag' => generateAssetTag($computer->id)]);
+    
+                DB::commit();
+    
+                $this->dispatch('pg:eventRefresh-ComputersTable');
+                $this->closeModal();
+                Toaster::success('Registro insertado correctamente!'); 
+            } catch(\Throwable $e){
+                Toaster::error('Hubo un error al insertar el registro.'); 
+                DB::rollBack();
+            }
         }
     }
 
