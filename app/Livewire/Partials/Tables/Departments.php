@@ -38,7 +38,8 @@ final class Departments extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Department::query();
+        return Department::query()
+                ->where('id', '!=', '1');
     }
 
     public function relationSearch(): array

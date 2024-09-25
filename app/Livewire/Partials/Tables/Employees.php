@@ -21,6 +21,10 @@ final class Employees extends PowerGridComponent
 {
     use WithExport;
 
+    public string $sortField = 'internal_id'; 
+
+    public string $sortDirection = 'asc';
+
     public function setUp(): array
     {
         $this->showCheckBox();
@@ -39,7 +43,8 @@ final class Employees extends PowerGridComponent
     public function datasource(): Builder
     {
         return Employee::query()
-            ->with('department');
+            ->with('department')
+            ->where('id', '!=', '1');
     }
 
     public function relationSearch(): array

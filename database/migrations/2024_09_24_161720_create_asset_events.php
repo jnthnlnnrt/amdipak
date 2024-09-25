@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('org_employees', function (Blueprint $table) {
+        Schema::create('asset_events', function (Blueprint $table) {
             $table->id();
-            $table->string('internal_id', 6)->unique();
-            $table->string('name', 50);
-            $table->string('email', 50)->nullable();
-            $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('location_id')->nullable();
-            $table->boolean('status');
+            $table->string('event_tag', 9)->unique();
+            $table->unsignedBigInteger('event_type_id');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->unsignedBigInteger('asset_id');
+            $table->unsignedBigInteger('employee_id')->nullable();
+            $table->integer('status');
             $table->text('remarks', 255)->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
 
             //Constraints
-            $table->foreign('department_id')->references('id')->on('org_departments');
-            $table->foreign('location_id')->references('id')->on('org_locations');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
         });
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('org_employees');
+        Schema::dropIfExists('asset_events');
     }
 };

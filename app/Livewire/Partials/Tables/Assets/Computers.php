@@ -134,13 +134,13 @@ final class Computers extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make('UM', 'last_maintenance'),
+            Column::make('UM', 'last_maintenance')->hidden(isHidden: true, isForceHidden: false),
 
-            Column::make('FQ', 'fq'),
+            Column::make('FQ', 'fq')->hidden(isHidden: true, isForceHidden: false),
 
-            Column::make('SM', 'sm'),
+            Column::make('SM', 'sm')->hidden(isHidden: true, isForceHidden: false),
 
-            Column::make('Score', 'score')
+            Column::make('Mantenimiento', 'score')
         ];
     }
 

@@ -11,22 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('org_employees', function (Blueprint $table) {
+        Schema::create('cat_asset_event_types', function (Blueprint $table) {
             $table->id();
-            $table->string('internal_id', 6)->unique();
-            $table->string('name', 50);
-            $table->string('email', 50)->nullable();
-            $table->unsignedBigInteger('department_id');
-            $table->unsignedBigInteger('location_id')->nullable();
-            $table->boolean('status');
-            $table->text('remarks', 255)->nullable();
+            $table->string('name', 30);
             $table->timestamps();
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
 
             //Constraints
-            $table->foreign('department_id')->references('id')->on('org_departments');
-            $table->foreign('location_id')->references('id')->on('org_locations');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('updated_by')->references('id')->on('users');
         });
@@ -37,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('org_employees');
+        Schema::dropIfExists('cat_asset_event_types');
     }
 };
